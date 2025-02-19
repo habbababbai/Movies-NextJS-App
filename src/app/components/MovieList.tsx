@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import getMovies from "../api/getMovies";
 import Image from "next/image";
+import Card from "./Card";
 
 export default function MovieList() {
     const { data, isLoading, isError } = useQuery({
@@ -17,16 +18,11 @@ export default function MovieList() {
             {data?.results?.map(
                 (movie: { id: number; title: string; poster_path: string }) => {
                     return (
-                        <div key={"movie" + movie.id}>
-                            <h1>{movie.title}</h1>
-                            <Image
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt=""
-                                width={100}
-                                height={100}
-                                className="w-auto h-auto"
-                            />
-                        </div>
+                        <Card
+                            key={`movie${movie.id}`}
+                            title={movie.title}
+                            imageUrl={movie.poster_path}
+                        />
                     );
                 }
             )}
