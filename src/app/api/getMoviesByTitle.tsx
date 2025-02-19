@@ -18,5 +18,6 @@ async function getData(title: string) {
 
 export default async function getMoviesByTitle(title: string) {
     const data = await getData(title);
+    console.log(data);
     return data;
 }
