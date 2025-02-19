@@ -1,4 +1,4 @@
-async function getData() {
+async function getData(title: string) {
     const options = {
         method: "GET",
         headers: {
@@ -6,18 +6,17 @@ async function getData() {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
         },
     };
-
+    const replacedTitle = title.replace(" ", "-");
     const response = fetch(
-        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+        `https://api.themoviedb.org/3/search/movie?query=${replacedTitle}&include_adult=false&language=en-US&page=1z`,
         options
     )
         .then((response) => response.json())
         .catch((err) => console.error(err));
-
     return response;
 }
 
-export default async function getMovies() {
-    const data = await getData();
+export default async function getMoviesByTitle(title: string) {
+    const data = await getData(title);
     return data;
 }
